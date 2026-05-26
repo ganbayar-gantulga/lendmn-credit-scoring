@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gantulga Ganbayar — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg2: #f7f8fa;
+    --border: #e5e7eb;
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --dark: #0f172a;
+    --text: #374151;
+    --muted: #6b7280;
+    --hero-bg: #0f172a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo .blue { color: var(--blue); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-pill { font-size: 0.72rem; font-weight: 500; color: var(--blue); background: var(--blue-light); border: 1px solid #bfdbfe; padding: 4px 14px; border-radius: 100px; }
+
+  /* HERO */
+  #hero { background: var(--hero-bg); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 60px 80px; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 500; color: #60a5fa;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 32px;
+    opacity: 0; animation: up 0.7s 0.1s forwards;
+  }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #60a5fa; animation: blink 1.8s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-name {
+    font-family: 'Outfit', sans-serif; font-weight: 800;
+    font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.9; letter-spacing: -0.04em;
+    opacity: 0; animation: up 0.7s 0.25s forwards;
+  }
+  .name-gantulga { color: var(--blue); display: block; }
+  .name-ganbayar { color: #ffffff; display: block; }
+
+  .hero-sub {
+    margin-top: 36px; font-size: 1.05rem; color: #94a3b8; max-width: 500px;
+    line-height: 1.75; font-weight: 300; opacity: 0; animation: up 0.7s 0.4s forwards;
+  }
+  .hero-sub strong { color: #cbd5e1; font-weight: 500; }
+
+  .hero-actions {
+    margin-top: 48px; display: flex; gap: 12px; flex-wrap: wrap;
+    opacity: 0; animation: up 0.7s 0.55s forwards;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 8px; font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s; cursor: pointer;
+  }
+  .btn-blue { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
+  .btn-blue:hover { background: #1d4ed8; }
+  .btn-outline { background: transparent; color: #cbd5e1; border: 1px solid #334155; }
+  .btn-outline:hover { border-color: #60a5fa; color: #60a5fa; }
+  .btn svg { width: 15px; height: 15px; }
+
+  /* SECTIONS */
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 100px 60px; }
+
+  .sec-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .sec-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--dark); letter-spacing: -0.03em; margin-bottom: 48px; line-height: 1.15; }
+
+  /* ABOUT */
+  #about { background: var(--bg); }
+  .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; align-items: start; }
+  .about-body p { color: var(--text); margin-bottom: 16px; font-size: 0.97rem; line-height: 1.85; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .stat-box { background: var(--bg); padding: 28px 24px; text-align: center; }
+  .stat-num { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; color: var(--blue); letter-spacing: -0.03em; line-height: 1; }
+  .stat-lbl { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 4px; }
+
+  /* SKILLS */
+  #skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .skill-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: box-shadow 0.2s, border-color 0.2s; }
+  .skill-card:hover { border-color: #bfdbfe; box-shadow: 0 2px 16px rgba(37,99,235,0.06); }
+  .skill-card-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 0.78rem; font-weight: 500; color: var(--dark); background: var(--bg2); border: 1px solid var(--border); padding: 4px 11px; border-radius: 6px; }
+
+  .lang-list { display: flex; flex-direction: column; gap: 14px; }
+  .lang-top { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 6px; font-weight: 500; color: var(--dark); }
+  .lang-lvl { color: var(--muted); font-weight: 400; }
+  .bar-bg { height: 4px; background: var(--bg2); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--blue); border-radius: 4px; transition: width 1.4s cubic-bezier(0.16,1,0.3,1); }
+  .lang-card { grid-column: span 2; }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .proj-card { border: 1px solid var(--border); border-radius: 12px; padding: 32px; background: var(--bg); transition: box-shadow 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+  .proj-card:hover { border-color: #bfdbfe; box-shadow: 0 4px 24px rgba(37,99,235,0.07); }
+  .proj-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .proj-icon { font-size: 1.5rem; width: 44px; height: 44px; background: var(--blue-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .badge { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+  .badge-done { color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; }
+  .badge-wip  { color: #d97706; background: #fffbeb; border: 1px solid #fde68a; }
+  .proj-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--dark); margin-bottom: 10px; letter-spacing: -0.02em; }
+  .proj-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; flex: 1; margin-bottom: 20px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .proj-tag { font-size: 0.72rem; font-weight: 500; color: var(--blue); background: var(--blue-light); padding: 3px 10px; border-radius: 5px; }
+  .proj-link { font-size: 0.8rem; font-weight: 500; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 0.15s; }
+  .proj-link:hover { gap: 8px; }
+  .proj-link svg { width: 13px; height: 13px; }
+
+  /* EDUCATION */
+  #education { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .edu-list { display: flex; flex-direction: column; gap: 16px; }
+  .edu-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; display: flex; align-items: flex-start; gap: 24px; transition: border-color 0.2s, box-shadow 0.2s; }
+  .edu-card:hover { border-color: #bfdbfe; box-shadow: 0 2px 16px rgba(37,99,235,0.06); }
+  .edu-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--blue-light); border: 1px solid #bfdbfe; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+  .edu-info { flex: 1; }
+  .edu-school { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--dark); letter-spacing: -0.02em; margin-bottom: 4px; }
+  .edu-degree { font-size: 0.9rem; color: var(--text); margin-bottom: 12px; }
+  .edu-degree strong { color: var(--blue); font-weight: 500; }
+  .edu-meta { display: flex; flex-wrap: wrap; gap: 16px; }
+  .edu-meta-item { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+  .edu-meta-item svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .edu-badge-wrap { flex-shrink: 0; }
+  .edu-status { font-size: 0.72rem; font-weight: 600; padding: 5px 14px; border-radius: 100px; white-space: nowrap; }
+  .edu-current { color: var(--blue); background: var(--blue-light); border: 1px solid #bfdbfe; }
+  .edu-grad    { color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-inner { max-width: 560px; text-align: center; margin: 0 auto; }
+  .contact-inner .sec-tag { display: block; }
+  .contact-inner .sec-title { margin-bottom: 16px; }
+  .contact-desc { font-size: 0.97rem; color: var(--muted); margin-bottom: 40px; line-height: 1.75; }
+  .contact-cards { display: flex; flex-direction: column; gap: 10px; }
+  .contact-row { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; text-decoration: none; color: var(--dark); font-size: 0.88rem; font-weight: 500; transition: border-color 0.2s, box-shadow 0.2s; }
+  .contact-row:hover { border-color: #bfdbfe; box-shadow: 0 2px 12px rgba(37,99,235,0.08); color: var(--blue); }
+  .contact-row svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--blue); }
+  .contact-row-label { font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-left: auto; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 24px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @keyframes up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    #hero { padding: 100px 24px 60px; }
+    .section-wrap { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .lang-card { grid-column: span 2; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-card { flex-direction: column; gap: 16px; padding: 24px; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .lang-card { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="blue">G</span>.Ganbayar</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-pill">Open to Internship</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <div class="hero-dot"></div>
+      AI Engineering Student · Hohai University
+    </div>
+    <h1 class="hero-name">
+      <span class="name-gantulga">Gantulga</span>
+      <span class="name-ganbayar">Ganbayar</span>
+    </h1>
+    <p class="hero-sub">
+      Building intelligent systems at the intersection of
+      <strong>Machine Learning</strong>, <strong>data science</strong>, and real-world engineering.
+      Actively seeking <strong>internship</strong> and entry-level roles in AI · ML · Data.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Get In Touch
+      </a>
+      <a href="https://github.com/ganbayar-gantulga" target="_blank" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/gantulga-ganbayar-06a391317/" target="_blank" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-tag">About Me</div>
+      <h2 class="sec-title">Building the future with data</h2>
+    </div>
+    <div class="about-grid reveal" style="transition-delay:0.1s">
+      <div class="about-body">
+        <p>I'm an AI Engineering student at Hohai University in China, passionate about creating machine learning systems that solve real-world problems.</p>
+        <p>My experience spans predictive modeling, sensor data processing, and hardware-software integration — always focused on practical, impactful solutions.</p>
+        <p>Trilingual in Mongolian, Chinese (HSK 6), and English. I'm actively building my GitHub portfolio and seeking internship opportunities to grow as an AI/ML engineer.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">2+</div>
+          <div class="stat-lbl">ML Projects</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Languages</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">AI</div>
+          <div class="stat-lbl">Major Focus</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2026</div>
+          <div class="stat-lbl">Expected Grad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-tag">Technical Skills</div>
+      <h2 class="sec-title">Tools of the trade</h2>
+    </div>
+    <div class="skills-grid reveal" style="transition-delay:0.1s">
+
+      <div class="skill-card">
+        <div class="skill-card-title">Programming</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">C</span>
+          <span class="tag">Java</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Machine Learning</div>
+        <div class="tags">
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Model Building</span>
+          <span class="tag">Data Preprocessing</span>
+          <span class="tag">Classification</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Data Analysis</div>
+        <div class="tags">
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Visualization</span>
+          <span class="tag">Feature Selection</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Tools & Hardware</div>
+        <div class="tags">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Arduino</span>
+        </div>
+      </div>
+
+      <div class="skill-card lang-card">
+        <div class="skill-card-title">Languages</div>
+        <div class="lang-list">
+          <div class="lang-item">
+            <div class="lang-top"><span>Mongolian</span><span class="lang-lvl">Native</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="100%" style="width:0"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-top"><span>Chinese (Mandarin)</span><span class="lang-lvl">Fluent · HSK 6</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="95%" style="width:0"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-top"><span>English</span><span class="lang-lvl">Fluent</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="85%" style="width:0"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-tag">Portfolio</div>
+      <h2 class="sec-title">Selected projects</h2>
+    </div>
+    <div class="projects-grid" style="grid-template-columns: 1fr;">
+      <!-- THESIS - full width -->
+      <div class="proj-card reveal" style="border-color: #bfdbfe; background: linear-gradient(135deg, #eff6ff 0%, #fff 60%);">
+        <div class="proj-top">
+          <div class="proj-icon" style="background:#dbeafe; font-size:1.3rem;">🎓</div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span class="badge" style="color:#7c3aed; background:#f5f3ff; border:1px solid #ddd6fe;">Thesis</span>
+            <span class="badge badge-wip">In Progress</span>
+          </div>
+        </div>
+        <div class="proj-name" style="font-size:1.3rem;">Game-Theoretic UAV Swarm Target Allocation</div>
+        <div class="proj-desc" style="max-width: 800px;">
+          Bachelor's thesis research modeling multi-UAV target assignment as a two-player non-cooperative game. Formulates Nash Equilibrium strategies using survival probability functions, dynamic target value models, and multi-dimensional resource constraints. Compares a standard Genetic Algorithm (BGA) against an Improved Genetic Algorithm (IGA) with adaptive mutation and elite preservation — demonstrating convergence improvements in complex tactical scenarios.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">MATLAB</span>
+          <span class="proj-tag">Game Theory</span>
+          <span class="proj-tag">Nash Equilibrium</span>
+          <span class="proj-tag">Genetic Algorithm</span>
+          <span class="proj-tag">UAV Swarms</span>
+          <span class="proj-tag">Optimization</span>
+        </div>
+        <span class="proj-link" style="opacity:0.45; cursor:default; font-size:0.78rem;">📄 Hohai University · Bachelor's Thesis · 2025–2026</span>
+      </div>
+    </div>
+
+    <div class="projects-grid" style="margin-top:16px;">
+
+      <div class="proj-card reveal" style="transition-delay:0.1s">
+        <div class="proj-top">
+          <div class="proj-icon">📉</div>
+          <span class="badge badge-done">Completed</span>
+        </div>
+        <div class="proj-name">Customer Churn Prediction</div>
+        <div class="proj-desc">Developed a machine learning model to predict customer churn using Python and Scikit-learn. Performed end-to-end data preprocessing, feature selection, and model evaluation with real-world classification data.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Scikit-learn</span>
+          <span class="proj-tag">Pandas</span>
+          <span class="proj-tag">Classification</span>
+        </div>
+        <a href="https://github.com/ganbayar-gantulga/customer-churn-prediction" target="_blank" class="proj-link">
+          View on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:0.2s">
+        <div class="proj-top">
+          <div class="proj-icon">🧭</div>
+          <span class="badge badge-done">Completed</span>
+        </div>
+        <div class="proj-name">IMU Navigation System</div>
+        <div class="proj-desc">Built a sensor-based navigation system using Arduino and Python. Processing real-time IMU data streams and visualizing results — gaining hands-on experience in hardware-software integration and embedded data analysis.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Arduino</span>
+          <span class="proj-tag">IMU Sensors</span>
+          <span class="proj-tag">Real-time Data</span>
+        </div>
+        <a href="https://github.com/ganbayar-gantulga/imu-navigation-system" target="_blank" class="proj-link">
+          View on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-tag">Education</div>
+      <h2 class="sec-title">Academic background</h2>
+    </div>
+    <div class="edu-list">
+
+      <div class="edu-card reveal" style="transition-delay:0.1s">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-info">
+          <div class="edu-school">Hohai University</div>
+          <div class="edu-degree">Bachelor's Degree in <strong>Artificial Intelligence</strong></div>
+          <div class="edu-meta">
+            <div class="edu-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Nanjing, China
+            </div>
+            <div class="edu-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Expected Graduation 2026
+            </div>
+            <div class="edu-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Full-time Student
+            </div>
+          </div>
+        </div>
+        <div class="edu-badge-wrap">
+          <span class="edu-status edu-current">Active</span>
+        </div>
+      </div>
+
+      <div class="edu-card reveal" style="transition-delay:0.2s">
+        <div class="edu-icon">🏫</div>
+        <div class="edu-info">
+          <div class="edu-school">Mongolian Chinese Friendship School</div>
+          <div class="edu-degree"><strong>High School Diploma</strong></div>
+          <div class="edu-meta">
+            <div class="edu-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ulaanbaatar, Mongolia
+            </div>
+          </div>
+        </div>
+        <div class="edu-badge-wrap">
+          <span class="edu-status edu-grad">Graduated</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner reveal">
+      <div class="sec-tag">Let's Connect</div>
+      <h2 class="sec-title">Open for opportunities</h2>
+      <p class="contact-desc">Actively seeking internship and entry-level roles in AI, ML, and Data. Feel free to reach out through any of the channels below.</p>
+      <div class="contact-cards">
+
+        <a href="mailto:ganbaayaar0623@gmail.com" class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          ganbaayaar0623@gmail.com
+          <span class="contact-row-label">Email</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/gantulga-ganbayar-06a391317/" target="_blank" class="contact-row">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          gantulga-ganbayar
+          <span class="contact-row-label">LinkedIn</span>
+        </a>
+
+        <a href="https://github.com/ganbayar-gantulga" target="_blank" class="contact-row">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          ganbayar-gantulga
+          <span class="contact-row-label">GitHub</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Gantulga Ganbayar</div>
+  <div class="footer-copy">AI Engineering Student · Hohai University · 2025</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.w);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
