@@ -10,7 +10,7 @@ import joblib
 import numpy as np
 from pathlib import Path
 
-ROOT   = Path(__file__).parent.parent
+ROOT   = Path(__file__).parent
 MODELS = ROOT / "models"
 
 app = FastAPI(

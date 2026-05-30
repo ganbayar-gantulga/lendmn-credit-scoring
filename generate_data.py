@@ -92,7 +92,7 @@ def generate_credit_dataset(n_samples: int = 5000) -> pd.DataFrame:
 
 if __name__ == "__main__":
     df = generate_credit_dataset(5000)
-    out = Path(__file__).parent.parent / "data" / "credit_data.csv"
+    out = Path(__file__).parent / "data" / "credit_data.csv"
     df.to_csv(out, index=False)
     print(f"✓ Dataset saved → {out}")
     print(f"  Shape   : {df.shape}")

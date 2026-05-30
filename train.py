@@ -30,9 +30,9 @@ from xgboost import XGBClassifier
 warnings.filterwarnings("ignore")
 
 # ── Paths ─────────────────────────────────────────────────────
-ROOT   = Path(__file__).parent.parent
-DATA   = ROOT / "data"
-MODELS = ROOT / "models"
+ROOT   = Path(__file__).parent
+DATA   = Path(__file__).parent / "data"
+MODELS = Path(__file__).parent / "models"
 MODELS.mkdir(exist_ok=True)
 
 COLORS = {"LendMN Red": "#E03131", "bg": "#FAFAFA", "text": "#1A1A2E"}
@@ -193,7 +193,7 @@ def plot_results(results, X_test, y_test, feature_cols):
     plt.suptitle("LendMN Credit Scoring — Model Evaluation",
                  fontsize=16, fontweight="bold", color="#1A1A2E", y=1.02)
     plt.tight_layout()
-    out = ROOT / "models" / "evaluation.png"
+    out = Path(__file__).parent / "models" / "evaluation.png"
     plt.savefig(out, dpi=150, bbox_inches="tight", facecolor="#FAFAFA")
     print(f"✓ Plot saved → {out}")
     plt.close()
@@ -225,7 +225,7 @@ def plot_score_dist(best_model, X_test, y_test):
     ax.set_ylabel("Count")
     ax.set_title("Credit Score Distribution by Outcome", fontweight="bold")
     ax.legend()
-    out = ROOT / "models" / "score_distribution.png"
+    out = Path(__file__).parent / "models" / "score_distribution.png"
     plt.tight_layout()
     plt.savefig(out, dpi=150, facecolor="#FAFAFA")
     print(f"✓ Score dist saved → {out}")
