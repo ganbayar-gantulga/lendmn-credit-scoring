@@ -1,5 +1,5 @@
 """
-LendMN Credit Scoring — FastAPI Inference API
+Credit Scoring Model — FastAPI Inference API
 Run: uvicorn src.api:app --reload
 """
 
@@ -10,11 +10,11 @@ import joblib
 import numpy as np
 from pathlib import Path
 
-ROOT   = Path(__file__).parent
+ROOT   = Path(__file__).parent.parent
 MODELS = ROOT / "models"
 
 app = FastAPI(
-    title="LendMN Credit Scoring API",
+    title="Credit Scoring Model API",
     description="ML-powered credit scoring for Mongolian lending market",
     version="1.0.0",
 )

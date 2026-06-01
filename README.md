@@ -1,4 +1,4 @@
-# LendMN Credit Scoring System
+# Credit Scoring Model System
 
 ML-powered credit scoring model for the Mongolian lending market.
 
